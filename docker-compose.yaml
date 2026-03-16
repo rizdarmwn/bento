@@ -18,7 +18,7 @@ services:
     restart: unless-stopped
 
   rabbitmq:
-    image: rabbitmq:4.2.4-alpine
+    image: rabbitmq:4.2.4-management-alpine
     ports:
       - 15672:15672
       - 5672:5672
@@ -32,6 +32,8 @@ services:
     image: postgres:18.3-alpine
     restart: always
     shm_size: 256mb
+    ports:
+      - 5432:5432
     environment:
       POSTGRES_PASSWORD: /run/secrets/postgres_pass
       POSTGRES_DB: /run/secrets/postgres_db
