@@ -13,8 +13,7 @@ services:
       - 6379:6379
     volumes:
       - redis-data:/data
-    environment:
-      - REDIS_ARGS="--requirepass $$(cat /run/secrets/redis_pass) --appendonly yes"
+    command: redis-server --save 20 1 --loglevel warning --requirepass $$(cat /run/secrets/redis_pass)
     restart: unless-stopped
 
   rabbitmq:
@@ -48,6 +47,7 @@ services:
 
 volumes:
   redis-data:
+    driver: local
   postgres-data:
   rabbitmq-data:
 
